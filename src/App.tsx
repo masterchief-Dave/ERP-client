@@ -1,5 +1,7 @@
 import "./App.css";
 import AddEmployeeModal from "./components/add-employee-modal";
+import { employeeColumns } from "./components/employee-table/columns";
+import { EmployeeDataTable } from "./components/employee-table/data-table";
 // import { AppSidebar } from "./components/app-sidebar";
 import UserNav from "./components/navbar";
 
@@ -15,8 +17,23 @@ function App() {
             </header>
           </div>
           <div>
-            <header> </header>
-            table section
+            <div> </div>
+            <EmployeeDataTable
+              columns={employeeColumns}
+              data={[
+                {
+                  id: "728ed52f",
+                  salary: 100,
+                  firstName: "Samuel",
+                  lastName: "Tems",
+                  role: "ADMIN",
+                  department: "IT",
+                  email: "m@example.com",
+                  createdAt: new Date(),
+                },
+                // ...
+              ]}
+            />
           </div>
         </div>
       </main>
