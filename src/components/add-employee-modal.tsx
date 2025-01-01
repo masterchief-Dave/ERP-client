@@ -13,9 +13,9 @@ const AddEmployeeModal = () => {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button>Open</Button>
+        <Button>Add Employee</Button>
       </DialogTrigger>
-      <DialogContent className="min-w-[55%] 2xl:min-w-[45%]">
+      <DialogContent className="min-w-[55%] 2xl:min-w-[45%] font-geist">
         <DialogHeader>
           <DialogTitle className="mb-8">Create User Profile</DialogTitle>
           <DialogDescription>
