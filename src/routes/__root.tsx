@@ -1,9 +1,10 @@
-import App from "@/App";
+// import App from "@/App";
 import { AppSidebar } from "@/components/app-sidebar";
+import Breadcrumb from "@/components/breadcrumb";
 import UserNav from "@/components/navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import LoginPage from "@/pages/auth/login.page";
-// import EmployeeDashboardPage from "@/pages/employee-dashboard.page";
+import EmployeeDashboardPage from "@/pages/employee-dashboard.page";
 import {
   createRootRoute,
   createRoute,
@@ -27,9 +28,12 @@ const protectedLayoutRoute = createRoute({
     <SidebarProvider defaultOpen={true}>
       <div className="flex h-screen w-full">
         <AppSidebar />
-        <main className="flex-1">
+        <main className="flex-1 flex flex-col">
           <UserNav />
-          <Outlet />
+          <Breadcrumb />
+          <div className="flex-1 p-6">
+            <Outlet />
+          </div>
         </main>
       </div>
       <TanStackRouterDevtools />
@@ -55,8 +59,8 @@ const dashboardRoute = createRoute({
   component: function Dashboard() {
     return (
       // You can implement your role-based logic here
-      <App />
-      // <EmployeeDashboardPage />
+      // <App />
+      <EmployeeDashboardPage />
     );
   },
 });
