@@ -1,8 +1,8 @@
-import App from "@/App";
+// import App from "@/App";
 import { AppSidebar } from "@/components/app-sidebar";
 import UserNav from "@/components/navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import AnalyticsPage from "@/pages/analytics.page";
+import EmployeeDashboardPage from "@/pages/employee-dashboard.page";
 import {
   createRootRoute,
   createRoute,
@@ -31,7 +31,12 @@ const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
   component: function Index() {
-    return <App />;
+    return (
+      <>
+        {/* <App /> */}
+        <EmployeeDashboardPage />
+      </>
+    );
   },
 });
 
@@ -43,23 +48,7 @@ const homeRoute = createRoute({
   },
 });
 
-const analyticsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/analytics",
-  component: function Analytics() {
-    return (
-      <div>
-        <AnalyticsPage />
-      </div>
-    );
-  },
-});
-
-const routeTree = rootRoute.addChildren([
-  homeRoute,
-  indexRoute,
-  analyticsRoute,
-]);
+const routeTree = rootRoute.addChildren([homeRoute, indexRoute]);
 
 const router = createRouter({ routeTree });
 
