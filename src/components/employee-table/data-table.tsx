@@ -61,10 +61,10 @@ export function EmployeeDataTable<TData, TValue>({
       <div className="rounded-md border shadow-md">
         <div className="flex items-center mx-2 my-4">
           <Input
-            placeholder="Sort, filter and search with Copilot"
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            placeholder="Sort, filter and search by email"
+            value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("name")?.setFilterValue(event.target.value)
+              table.getColumn("email")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />

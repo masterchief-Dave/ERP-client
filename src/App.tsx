@@ -2,13 +2,10 @@ import "./App.css";
 import AddEmployeeModal from "./components/add-employee-modal";
 import { employeeColumns } from "./components/employee-table/columns";
 import { EmployeeDataTable } from "./components/employee-table/data-table";
-// import { AppSidebar } from "./components/app-sidebar";
-import UserNav from "./components/navbar";
 
 function App() {
   return (
     <div className="w-full">
-      <UserNav />
       <main className="container mx-auto py-12">
         <div className="space-y-12">
           <div>
@@ -17,7 +14,6 @@ function App() {
             </header>
           </div>
           <div>
-            <div> </div>
             <EmployeeDataTable
               columns={employeeColumns}
               data={[
