@@ -1,8 +1,9 @@
+import App from "@/App";
 import { AppSidebar } from "@/components/app-sidebar";
 import UserNav from "@/components/navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import LoginPage from "@/pages/auth/login.page";
-import EmployeeDashboardPage from "@/pages/employee-dashboard.page";
+// import EmployeeDashboardPage from "@/pages/employee-dashboard.page";
 import {
   createRootRoute,
   createRoute,
@@ -54,7 +55,8 @@ const dashboardRoute = createRoute({
   component: function Dashboard() {
     return (
       // You can implement your role-based logic here
-      <EmployeeDashboardPage />
+      <App />
+      // <EmployeeDashboardPage />
     );
   },
 });
