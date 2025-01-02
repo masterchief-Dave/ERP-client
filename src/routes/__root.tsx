@@ -2,6 +2,7 @@ import App from "@/App";
 import { AppSidebar } from "@/components/app-sidebar";
 import UserNav from "@/components/navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import AnalyticsPage from "@/pages/analytics.page";
 import {
   createRootRoute,
   createRoute,
@@ -46,7 +47,11 @@ const analyticsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/analytics",
   component: function Analytics() {
-    return <div>Analytics Page</div>;
+    return (
+      <div>
+        <AnalyticsPage />
+      </div>
+    );
   },
 });
 
