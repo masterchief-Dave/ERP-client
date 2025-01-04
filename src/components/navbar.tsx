@@ -1,5 +1,5 @@
 import { useSidebar } from "@/components/ui/sidebar";
-import { GripIcon, MinusIcon } from "lucide-react";
+import { MinusIcon, PanelLeft } from "lucide-react";
 import UserAvatar from "./user-avatar";
 
 const UserNav = () => {
@@ -44,7 +44,7 @@ const CustomTrigger = () => {
 
   return (
     <div className="w-fit cursor-pointer">
-      <GripIcon className="w-5 h-5 sm:w-6 sm:h-6" onClick={toggleSidebar} />
+      <PanelLeft className="w-5 h-5 sm:w-6 sm:h-6" onClick={toggleSidebar} />
     </div>
   );
 };
