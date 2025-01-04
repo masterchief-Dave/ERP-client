@@ -50,8 +50,11 @@
     font-family: "Geist", serif;
 }
 
+body {
+  font-family: "Geist", serif !important;
+}
 .font-geist {
-  font-family: "Geist", serif;
+  font-family: "Geist", serif !important;
 }
 /* In your table.tsx component or global styles */
 .table th,
