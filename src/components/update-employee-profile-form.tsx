@@ -53,6 +53,12 @@ export function UpdateEmployeeProfileForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       firstName: "",
+      lastName: "",
+      email: "",
+      role: "USER",
+      department: "",
+      createdAt: new Date(),
+      salary: 0,
     },
   });
 
