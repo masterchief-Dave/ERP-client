@@ -1,10 +1,10 @@
 import { useSidebar } from "@/components/ui/sidebar";
-import { GripIcon, MinusIcon } from "lucide-react";
+import { MinusIcon, PanelLeft } from "lucide-react";
 import UserAvatar from "./user-avatar";
 
 const UserNav = () => {
   return (
-    <nav className="bg-[#101a36] px-2 sm:px-4 font-[family-name:var(--font-geist-sans)] w-full text-white py-2 sm:py-4">
+    <nav className="bg-[#222] px-2 sm:px-4 font-[family-name:var(--font-geist-sans)] w-full text-white py-2 sm:py-4">
       {/* Main container */}
       <div className="flex items-center justify-between">
         {/* Left section */}
@@ -44,7 +44,7 @@ const CustomTrigger = () => {
 
   return (
     <div className="w-fit cursor-pointer">
-      <GripIcon className="w-5 h-5 sm:w-6 sm:h-6" onClick={toggleSidebar} />
+      <PanelLeft className="w-5 h-5 sm:w-6 sm:h-6" onClick={toggleSidebar} />
     </div>
   );
 };
