@@ -1,19 +1,11 @@
-import { SidebarProvider } from "@/components/ui/sidebar.tsx";
+import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
 import "./index.css";
-import { AppSidebar } from "./components/app-sidebar.tsx";
+import { router } from "./routes/__root.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <SidebarProvider defaultOpen={true}>
-      <div className="flex w-full">
-        <AppSidebar />
-        <div className="w-full">
-          <App />
-        </div>
-      </div>
-    </SidebarProvider>
+    <RouterProvider router={router} />
   </StrictMode>
 );

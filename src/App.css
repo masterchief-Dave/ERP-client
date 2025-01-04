@@ -46,7 +46,19 @@
 #root {
   max-width: 2560px;
   margin: 0 auto;
-  text-align: center;
   font-language-override: normal;
     font-family: "Geist", serif;
+}
+
+body {
+  font-family: "Geist", serif !important;
+}
+.font-geist {
+  font-family: "Geist", serif !important;
+}
+/* In your table.tsx component or global styles */
+.table th,
+.table td {
+  /* padding: 1rem; */
+  text-align: left;
 }
