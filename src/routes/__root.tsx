@@ -12,7 +12,7 @@ import {
   createRootRoute,
   createRoute,
   createRouter,
-  Navigate,
+  // Navigate,
   Outlet,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
@@ -34,16 +34,15 @@ const protectedLayoutRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "protected",
   component: function ProtectedLayout() {
-    const { session } = useSession();
+    // const { session } = useSession();
 
-    if (session.status === "unauthenticated") {
-      // Redirect to login
-      return <Navigate to="/auth/login" />;
-    }
+    // if (session.status === "unauthenticated") {
+    //   return <Navigate to="/auth/login" />;
+    // }
 
-    if (session.status === "pending") {
-      return <div>Loading...</div>;
-    }
+    // if (session.status === "pending") {
+    //   return <div>Loading...</div>;
+    // }
 
     return (
       <SidebarProvider defaultOpen={true}>
@@ -81,7 +80,11 @@ const dashboardRoute = createRoute({
     const { session } = useSession();
     return (
       <>
-        {session.user?.role === "admin" ? <App /> : <EmployeeDashboardPage />}
+        {session.user?.role === "employee" ? (
+          <EmployeeDashboardPage />
+        ) : (
+          <App />
+        )}
       </>
     );
   },
@@ -110,7 +113,6 @@ const routeTree = rootRoute.addChildren([
 
 const router = createRouter({
   routeTree,
-  // You can add default configuration here
   defaultPreload: "intent",
 });
 
