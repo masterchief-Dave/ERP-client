@@ -37,7 +37,7 @@ const Breadcrumb = () => {
       </Link>
 
       {breadcrumbs.map((breadcrumb, index) => (
-        <React.Fragment key={breadcrumb.path}>
+        <React.Fragment key={breadcrumb.path + index}>
           <ChevronRight className="h-4 w-4" />
           <Link
             to={breadcrumb.path}

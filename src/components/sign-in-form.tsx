@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -19,6 +21,8 @@ const formSchema = z.object({
 });
 
 const SignInForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,10 +31,38 @@ const SignInForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    try {
+      setIsLoading(true);
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        values,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res);
+      if (res.status === 200) {
+        console.log("user is logged in");
+        // check the user role and redirect the user to the correct page accordingly
+        if (res.data.responseObject.user.role === "admin") {
+          //
+        } else {
+          // return window.location.replace("/dashboard");
+        }
+      }
+    } catch (error: unknown) {
+      setError("Invalid credentials");
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   }
   return (
     <Card className="w-full font-geist">
@@ -40,6 +72,7 @@ const SignInForm = () => {
         </CardTitle>
       </CardHeader>
       <CardContent>
+        {error && <p className="text-red-500">{error}</p>}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -63,14 +96,14 @@ const SignInForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Password" {...field} />
+                    <Input placeholder="Password" type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" disabled={isLoading}>
               Submit
             </Button>
           </form>

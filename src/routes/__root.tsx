@@ -1,14 +1,18 @@
-// import App from "@/App";
+import App from "@/App";
 import { AppSidebar } from "@/components/app-sidebar";
 import Breadcrumb from "@/components/breadcrumb";
 import UserNav from "@/components/navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { SessionProvider } from "@/context/session.provider";
+import { useSession } from "@/hooks/use-session";
 import LoginPage from "@/pages/auth/login.page";
 import EmployeeDashboardPage from "@/pages/employee-dashboard.page";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   createRootRoute,
   createRoute,
   createRouter,
+  Navigate,
   Outlet,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
@@ -16,7 +20,12 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 // Root route - serves as the base layout
 const rootRoute = createRootRoute({
   component: () => (
-    <Outlet /> // This will render either the protected layout or the auth layout
+    <SessionProvider>
+      <QueryClientProvider client={new QueryClient()}>
+        <Outlet />
+        <TanStackRouterDevtools />
+      </QueryClientProvider>
+    </SessionProvider>
   ),
 });
 
@@ -24,21 +33,33 @@ const rootRoute = createRootRoute({
 const protectedLayoutRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "protected",
-  component: () => (
-    <SidebarProvider defaultOpen={true}>
-      <div className="flex h-screen w-full">
-        <AppSidebar />
-        <main className="flex-1 flex flex-col">
-          <UserNav />
-          <Breadcrumb />
-          <div className="flex-1 p-6">
-            <Outlet />
-          </div>
-        </main>
-      </div>
-      <TanStackRouterDevtools />
-    </SidebarProvider>
-  ),
+  component: function ProtectedLayout() {
+    const { session } = useSession();
+
+    if (session.status === "unauthenticated") {
+      // Redirect to login
+      return <Navigate to="/auth/login" />;
+    }
+
+    if (session.status === "pending") {
+      return <div>Loading...</div>;
+    }
+
+    return (
+      <SidebarProvider defaultOpen={true}>
+        <div className="flex h-screen w-full">
+          <AppSidebar />
+          <main className="flex-1 flex flex-col">
+            <UserNav />
+            <Breadcrumb />
+            <div className="flex-1 p-6">
+              <Outlet />
+            </div>
+          </main>
+        </div>
+      </SidebarProvider>
+    );
+  },
 });
 
 // Auth layout route - for authentication pages
@@ -57,10 +78,11 @@ const dashboardRoute = createRoute({
   getParentRoute: () => protectedLayoutRoute,
   path: "/",
   component: function Dashboard() {
+    const { session } = useSession();
     return (
-      // You can implement your role-based logic here
-      // <App />
-      <EmployeeDashboardPage />
+      <>
+        {session.user?.role === "admin" ? <App /> : <EmployeeDashboardPage />}
+      </>
     );
   },
 });
